@@ -5,7 +5,26 @@ import azure.cosmos.errors as errors
 import shared.config as cfg
 from DBManagement import DatabaseManagement
 from CollectionManagement import CollectionManagement
-# from DocumentManagement import DocumentManagement
+from DocumentManagement import DocumentManagement
+
+# Create a custom menu for CosmosDB management 
+# Database CRUD operations
+# Collections CRUD operations
+
+# ------------------------------ MENU ------------------------------
+# 1. List all databases on an account
+# 2. List all collections in specific database
+# 3. Get a database by id
+# 4. Get collection by id
+# 5. Get & change collection Offer Throughput by 100
+# 6. Create a database
+# 7. Create a collection
+# 8. Delete database by id
+# 9. Delete collection by id
+# 12. Exit
+# -------------------------------------------------------------------
+# Enter your choice [1-12]:
+
 
 HOST = cfg.settings['host']
 MASTER_KEY = cfg.settings['master_key']
@@ -34,12 +53,15 @@ def print_menu():
         print("5. Get & change collection Offer Throughput by 100")
         print("6. Create a database")
         print("7. Create a collection")
-        print("8. Delete database by id")
-        print("9. Delete collection by id")
-        # print("11. Search collection by id")
-        print("12. Exit")
+        print("8. Create documents")
+        print("9. Read a specific document")
+        print("10. Read all documents in a collection")
+        print("11. Delete database by id")
+        print("12. Delete collection by id")
+
+        print("13. Exit")
         print(67 * "-")
-        # print("3. Query for a database")
+
 
 def run_sample():     
         with IDisposable(cosmos_client.CosmosClient(HOST, {'masterKey': MASTER_KEY} )) as client:
@@ -48,7 +70,7 @@ def run_sample():
     
                 while loop:          ## While loop which will keep going until loop = False
                     print_menu()    ## Displays menu
-                    choice = int(input("Enter your choice [1-12]: "))
+                    choice = int(input("Enter your choice [1-13]: "))
                     
                     if choice == 1:     
                         print("Menu 1 has been selected")
@@ -57,7 +79,7 @@ def run_sample():
                     elif choice == 2:
                         print("Menu 2 has been selected")
                         # list all collection on an database
-                        db_name = str(input("Please provide a database name:"))
+                        db_name = str(input("Please provide a database name: "))
                         if db_name:
                             CollectionManagement.list_Containers(client, db_name)
                         else:
@@ -65,14 +87,15 @@ def run_sample():
                     
                     elif choice == 3:
                         print("Menu 3 has been selected")
-                        db_name = str(input("Please provide a database name"))
+                        db_name = str(input("Please provide a database name: "))
                         if db_name:
                             DatabaseManagement.find_database(client, db_name)
                         else:
                             print("No input was provided")
                     elif choice == 4:
                         print("Menu 4 has been selected")
-                        # query for a collection by id       
+                        # query for a collection by id      
+
                         coll = str(input("Please provide a collection name: "))
                         if coll:
                             CollectionManagement.find_Container(client, coll)
@@ -92,7 +115,7 @@ def run_sample():
                         
                     elif choice == 6:
                         print("Menu 2 has been selected")
-                        db_name = str(input("Please provide a database name to be created"))
+                        db_name = str(input("Please provide a database name to be created: "))
                         if db_name:
                             DatabaseManagement.create_database(client, db_name)
                         else:
@@ -100,31 +123,55 @@ def run_sample():
                     elif choice == 7:
                         print("Menu 7 has been selected")
                         # create a collection        
-                        coll = str(input("Please provide a collection name to be created: "))
-                        if coll:
-                            CollectionManagement.create_Container(client, coll)
+                        db_name = str(input("Please provide the database where the collection will be created: "))
+                        coll_name = str(input("Please provide a collection name to be created: "))
+                        if (len(db_name) != 0 and len(coll_name) != 0):
+                            CollectionManagement.create_Container(client, db_name, coll_name)
                         else:
-                             print("Empty name provided")
-
+                             print("Invalid database or collection name provided")
                     elif choice == 8:
                         print("Menu 8 has been selected")
-                        db_name = str(input("Please provide a database name to be deleted"))
+                        db_name = str(input("Please provide the database where documents will be created: "))
+                        coll_name = str(input("Please provide a collection name where documents will be created: "))
+                        if (len(db_name) != 0 and len(coll_name) != 0):
+                            DocumentManagement.CreateDocuments(client, db_name, coll_name)
+                        else:
+                             print("Invalid database or collection name provided")                            
+                    elif choice == 9:
+                        print("Menu 9 has been selected")
+                        db_name = str(input("Please provide the database name: "))
+                        coll_name = str(input("Please provide a collection name: "))
+                        if (len(db_name) != 0 and len(coll_name) != 0):
+                            DocumentManagement.ReadDocument(client, db_name, coll_name, 'SalesOrder1')
+                        else:
+                             print("Invalid database or collection name provided")
+                    elif choice == 10:
+                        print("Menu 10 has been selected")
+                        db_name = str(input("Please provide the database name: "))
+                        coll_name = str(input("Please provide a collection name: "))
+                        if (len(db_name) != 0 and len(coll_name) != 0):
+                            DocumentManagement.ReadDocuments(client, db_name, coll_name)
+
+                    elif choice == 11:
+                        print("Menu 11 has been selected")
+                        db_name = str(input("Please provide a database name to be deleted: "))
                         DatabaseManagement.delete_database(client, DATABASE_ID)
                         
-                    elif choice == 9:                       
-                        print("Menu 11 has been selected")
+                    elif choice == 12:                       
+                        print("Menu 12 has been selected")
                         #  delete collection by id
+                        db_name = str(input("Please provide the database name where the collection is located: "))
                         coll_name = str(input("Please provide a collection name to be deleted: "))
-                        if coll_name:
-                                CollectionManagement.delete_Container(client, coll_name)
+                        if (len(coll_name) != 0 and len(db_name) != 0):
+                                CollectionManagement.delete_Container(client, db_name, coll_name)
                         else:
-                                print("Empty name provided")
+                                print("Invalid database or collection name provided!")
 
-                        
-                    elif choice == 12:
-                        print("Menu  has been selected, exiting...")
+                         
+                    elif choice == 13:
+                        print("Menu 13 has been selected, exiting...")
                         ## You can add your code or functions here
-                        loop = false # This will make the while loop to end as not value of loop is set to False
+                        loop = False # This will make the while loop to end as not value of loop is set to False
                         
                     else:
                         # Any integer inputs other than values 1-5 we print an error message
