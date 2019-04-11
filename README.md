@@ -22,12 +22,12 @@ The application uses the Python API to perform CRUD operations on databases, col
 ## The configuration file shared/config.py
 
 In order to set the connection details the following details are required in the configuration file:
-
+```
 	settings = {
   	  'host': '[YOUR ENDPOINT]',
   	  'master_key': '[YOUR KEY]'
 	}
-	
+```
 The endpoint and the connection key are displayed in the Azure CosmosDB account, under the menu “Keys”
  
 
@@ -56,9 +56,10 @@ Enter your choice [1-13]:
 
 	
 The connection to the database is done with the code below in the method run_sample()
+
 ```
-with IDisposable(cosmos_client.CosmosClient(HOST, {'masterKey': MASTER_KEY} )) as client:
-```	
+	with IDisposable(cosmos_client.CosmosClient(HOST, {'masterKey': MASTER_KEY} )) as client: 
+```
 ## Database management (DBManagement.py) contains the following methods:
 
 •	find_database(client, id) interrogates the system for a database using the  SQL syntax:
@@ -94,7 +95,7 @@ collections = list(client.QueryContainers(db_link,
         { "name":"@id", "value": id } ]  }   ))
 ```
 •	read_Container(client, db, id) takes 2 inputs from the console, the database name and the collection name. It uses the URI to search the existence of the collection.
-	```	
+```	
 		db_link = 'dbs/' + db
 		collection_link = db_link + '/colls/{0}'.format(id)
 		collection = client.ReadContainer(collection_link)
@@ -134,7 +135,7 @@ offer = list(client.QueryOffers('SELECT * FROM c WHERE c.resource = \'{0}\''.for
 print('Found Offer \'{0}\' for Collection \'{1}\' and its throughput is \'{2}\''.format(offer['id'], collection['_self'], offer['content']['offerThroughput']))
 ```
 The Offer Throughput of a collection controls the throughput allocated to the Collection. To increase (or decrease) the throughput of any Collection you need to adjust the Offer.content.offerThroughput of the Offer record linked to the Collection
-      ```  
+```  
 #The following code shows how you can change Collection's throughput
 offer['content']['offerThroughput'] += 100
 offer = client.ReplaceOffer(offer['_self'], offer)
