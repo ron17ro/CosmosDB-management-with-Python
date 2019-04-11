@@ -19,10 +19,12 @@ The application structure and code review
  
 The configuration file shared/config.py
 In order to set the connection details the following details are required in the configuration file:
-settings = {
-    'host': '[YOUR ENDPOINT]',
-    'master_key': '[YOUR KEY]'
-}
+
+	settings = {
+  	  'host': '[YOUR ENDPOINT]',
+  	  'master_key': '[YOUR KEY]'
+	}
+	
 The endpoint and the connection key are displayed in the Azure CosmosDB account, under the menu “Keys”
  
 
@@ -119,18 +121,16 @@ Working with containers will involve additional costs in a real environment (not
 The automatic indexing is set to false, the throughput is set to 500 RU instead of default 400 RU and unique keys are assigned to the new collection. 
 
 •	manage_offer_throughput(client, db, id) this method takes two parameters from the console, database id and the collection id, it displays the available throughput and it increases the value with 100 RU. Collection's Offer Throughput determines the performance throughput of a collection. A Collection is loosely coupled to Offer through the Offer's offerResourceId
-#Offer.offerResourceId == Collection._rid
-     		 #Offer.resource == Collection._self
-        
-       
+	
+	    #Offer.offerResourceId == Collection._rid
+     	    #Offer.resource == Collection._self  
             # now use its _self to query for Offers using SQL
-            offer = list(client.QueryOffers('SELECT * FROM c WHERE c.resource = \'{0}\''.format(collection['_self'])))[0]
-            
+            offer = list(client.QueryOffers('SELECT * FROM c WHERE c.resource = \'{0}\''.format(collection['_self'])))[0]            
             print('Found Offer \'{0}\' for Collection \'{1}\' and its throughput is \'{2}\''.format(offer['id'], collection['_self'], offer['content']['offerThroughput']))
 
 The Offer Throughput of a collection controls the throughput allocated to the Collection. To increase (or decrease) the throughput of any Collection you need to adjust the Offer.content.offerThroughput of the Offer record linked to the Collection
         
-      		 #The following code shows how you can change Collection's throughput
+      		#The following code shows how you can change Collection's throughput
         	offer['content']['offerThroughput'] += 100
        		offer = client.ReplaceOffer(offer['_self'], offer)
 
@@ -146,9 +146,9 @@ The Offer Throughput of a collection controls the throughput allocated to the Co
 
 •	delete_Container(client, db, id) takes two input values from the console: the database name and the collection id to be deleted.
 
-   			 db_link = 'dbs/' + db
-            		 collection_link = db_link + '/colls/{0}'.format(id)
-              		 client.DeleteContainer(collection_link)
+   		db_link = 'dbs/' + db
+            	collection_link = db_link + '/colls/{0}'.format(id)
+              	client.DeleteContainer(collection_link)
 
 Document Management (DocumentManangement.py)
 
