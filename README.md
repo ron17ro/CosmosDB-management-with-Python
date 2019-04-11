@@ -1,13 +1,13 @@
 # CosmosDB-management-with-Python
 
 Azure Cosmos Db – Python API – Working with databases, collections and documents
+
 Pre-requisites 
 •	Visual Studio Code
 •	Python extension for Visual Studio Code 
 •	Python 3.6 and references added in PATH https://www.python.org/downloads/
 •	Azure CosmosDb account
-All the code provided in this tutorial is available on GitHub:
-git clone https://github.com/ron17ro/CosmosDB-management-with-Python.git
+
 One of the supported APIs is the SQL API, which provides a JSON document model with SQL querying and JavaScript procedural logic. This tutorial shows how to use the Azure Cosmos DB with the SQL API to store and access data from a Python application.
 If you don't have an Azure subscription, create a free account before you begin.
 Try Azure Cosmos DB for free without an Azure subscription. Or, you can use the Azure Cosmos DB Emulator with a URI of https://localhost:8081. The Primary Key is provided in Authenticating requests.
@@ -27,6 +27,7 @@ The endpoint and the connection key are displayed in the Azure CosmosDB account,
 
 The main class, used to run the application (ProgramMenu.py)
 Contains a custom-made menu to easily perform actions on the Azure CosmosDB account.
+
 $ python ProgramMenu.py
 ------------------------------ MENU ------------------------------
 1. List all databases on an account
