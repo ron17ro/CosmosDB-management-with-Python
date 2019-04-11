@@ -18,6 +18,7 @@ The application uses the Python API to perform CRUD operations on databases, col
 The application structure and code review 
  
 The configuration file shared/config.py
+
 In order to set the connection details the following details are required in the configuration file:
 
 	settings = {
@@ -28,8 +29,8 @@ In order to set the connection details the following details are required in the
 The endpoint and the connection key are displayed in the Azure CosmosDB account, under the menu “Keys”
  
 
-The main class, used to run the application (ProgramMenu.py)
-Contains a custom-made menu to easily perform actions on the Azure CosmosDB account.
+The main class, used to run the application (ProgramMenu.py) contains a custom-made menu to easily perform actions on the Azure CosmosDB account.
+Launch the console application using the command:
 
 $ python ProgramMenu.py
 
@@ -53,9 +54,9 @@ Enter your choice [1-13]:
 	
 The connection to the database is done with the code below in the method run_sample()
 
-with IDisposable(cosmos_client.CosmosClient(HOST, {'masterKey': MASTER_KEY} )) as client:
-
-Database management (DBManagement.py)
+	with IDisposable(cosmos_client.CosmosClient(HOST, {'masterKey': MASTER_KEY} )) as client:
+	
+Database management (DBManagement.py) contains the following methods:
 •	find_database(client, id) interrogates the system for a database using the  SQL syntax:
 	
 	databases = list(client.QueryDatabases({
@@ -76,7 +77,7 @@ Database management (DBManagement.py)
 
 •	delete_database(client, id) is deleting the database name passed by the user in the console.  
 
-Collection management (CollectionsManagement.py)
+Collection management (CollectionsManagement.py) summary
 
 Working with containers will involve additional costs in a real environment (not trial). Each time a DocumentContainer is created, the account will be billed for 1 hour of usage based on the performance tier of that account. 
 •	find_Container(client, db, id) in a similar way to working with databases, this method is searching a specific collection in a certain database using SQL. The database id and the collection name are provided by the user in the console.
@@ -150,7 +151,7 @@ The Offer Throughput of a collection controls the throughput allocated to the Co
             	collection_link = db_link + '/colls/{0}'.format(id)
               	client.DeleteContainer(collection_link)
 
-Document Management (DocumentManangement.py)
+Document Management (DocumentManangement.py) summary
 
 •	CreateDocuments(client, db, coll) takes two arguments from the consoles, the database id and the collection id where the documents will be created. The JSON definition is stored in 2 additional methods for simplicity GetSalesOrder(document_id) and GetSalesOrderV2(document_id)
 
