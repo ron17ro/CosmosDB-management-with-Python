@@ -2,22 +2,24 @@
 
 Azure Cosmos Db – Python API – Working with databases, collections and documents
 
-Pre-requisites 
+#Pre-requisites 
 
-•	Visual Studio Code
-•	Python extension for Visual Studio Code 
-•	Python 3.6 and references added in PATH https://www.python.org/downloads/
-•	Azure CosmosDb account
+*	Visual Studio Code
+*	Python extension for Visual Studio Code 
+*	Python 3.6 and references added in PATH https://www.python.org/downloads/
+*	Azure CosmosDb account
+
+#Short description
 
 One of the supported APIs is the SQL API, which provides a JSON document model with SQL querying and JavaScript procedural logic. This tutorial shows how to use the Azure Cosmos DB with the SQL API to store and access data from a Python application.
 If you don't have an Azure subscription, create a free account before you begin.
-Try Azure Cosmos DB for free without an Azure subscription. Or, you can use the Azure Cosmos DB Emulator with a URI of https://localhost:8081. The Primary Key is provided in Authenticating requests.
-You also need the Python SDK.
+Try Azure Cosmos DB for free without an Azure subscription. Or, you can use the Azure Cosmos DB Emulator with a URI of https://localhost:8081. The Primary Key is provided in the Authenticating requests.You also need the Python SDK.
+
 The application uses the Python API to perform CRUD operations on databases, collections and documents. A fair amount of code in this application was taken from https://github.com/Azure/azure-cosmos-python.git , however, all the methods were customized to fit the purpose of this tutorial.
 
-The application structure and code review 
+#The application structure and code review 
  
-The configuration file shared/config.py
+##The configuration file shared/config.py
 
 In order to set the connection details the following details are required in the configuration file:
 
@@ -29,7 +31,7 @@ In order to set the connection details the following details are required in the
 The endpoint and the connection key are displayed in the Azure CosmosDB account, under the menu “Keys”
  
 
-The main class, used to run the application (ProgramMenu.py) contains a custom-made menu to easily perform actions on the Azure CosmosDB account.
+##The main class ProgramMenu.py, used to run the application contains a custom-made menu to easily perform actions on the Azure CosmosDB account.
 Launch the console application using the command:
 
 $ python ProgramMenu.py
@@ -56,7 +58,8 @@ The connection to the database is done with the code below in the method run_sam
 
 	with IDisposable(cosmos_client.CosmosClient(HOST, {'masterKey': MASTER_KEY} )) as client:
 	
-Database management (DBManagement.py) contains the following methods:
+##Database management (DBManagement.py) contains the following methods:
+
 •	find_database(client, id) interrogates the system for a database using the  SQL syntax:
 	
 	databases = list(client.QueryDatabases({
@@ -151,7 +154,7 @@ The Offer Throughput of a collection controls the throughput allocated to the Co
             	collection_link = db_link + '/colls/{0}'.format(id)
               	client.DeleteContainer(collection_link)
 
-Document Management (DocumentManangement.py) summary
+##Document Management (DocumentManangement.py) summary
 
 •	CreateDocuments(client, db, coll) takes two arguments from the consoles, the database id and the collection id where the documents will be created. The JSON definition is stored in 2 additional methods for simplicity GetSalesOrder(document_id) and GetSalesOrderV2(document_id)
 
