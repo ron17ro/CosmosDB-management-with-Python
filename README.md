@@ -141,7 +141,7 @@ The Offer Throughput of a collection controls the throughput allocated to the Co
 
 •	list_Containers(client, db) takes as input the database name from the console and displays all available collections  
 
- 		db_link = 'dbs/' + db
+		db_link = 'dbs/' + db
                 collections = list(client.ReadContainers(db_link))            
                 if not collections:
                     print("\'{0}\' has no collections".format(db))
@@ -174,14 +174,13 @@ Note that Reads require a partition key to be specified. This can be skipped if 
 
 		doc_link = collection_link + '/docs/' + doc_id
                 response = client.ReadItem(doc_link)
-
                 print('Document read by Id {0}'.format(doc_id))
                 print('Account Number: {0}'.format(response.get('account_number')))
 
 •	ReadDocuments(client, db, coll) takes two arguments from the console, the database id and the collection id. 
 NOTE: Use MaxItemCount on Options to control how many documents come back per trip to the server. Important to handle throttles whenever you are doing operations such as this. Might result in a 429 (throttled request) error
 	
-			 documentlist = list(client.ReadItems(collection_link, {'maxItemCount':10}))                
-              		 print('Found {0} documents'.format(documentlist.__len__()))                
-			 for doc in documentlist:
-                   		print('Document Id: {0}'.format(doc.get('id')))
+		documentlist = list(client.ReadItems(collection_link, {'maxItemCount':10}))                
+              	print('Found {0} documents'.format(documentlist.__len__()))                
+		for doc in documentlist:
+                   print('Document Id: {0}'.format(doc.get('id')))
