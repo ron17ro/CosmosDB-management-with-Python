@@ -3,6 +3,7 @@
 Azure Cosmos Db – Python API – Working with databases, collections and documents
 
 Pre-requisites 
+
 •	Visual Studio Code
 •	Python extension for Visual Studio Code 
 •	Python 3.6 and references added in PATH https://www.python.org/downloads/
@@ -29,6 +30,7 @@ The main class, used to run the application (ProgramMenu.py)
 Contains a custom-made menu to easily perform actions on the Azure CosmosDB account.
 
 $ python ProgramMenu.py
+
 ------------------------------ MENU ------------------------------
 1. List all databases on an account
 2. List all collections in specific database
