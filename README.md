@@ -85,6 +85,7 @@ database = client.ReadDatabase(database_link)
 ## Collection management (CollectionsManagement.py) summary
 
 Working with containers will involve additional costs in a real environment (not trial). Each time a DocumentContainer is created, the account will be billed for 1 hour of usage based on the performance tier of that account. 
+
 •	find_Container(client, db, id) in a similar way to working with databases, this method is searching a specific collection in a certain database using SQL. The database id and the collection name are provided by the user in the console.
  ```    
 db_link = 'dbs/' + db
